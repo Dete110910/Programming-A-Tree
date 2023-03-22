@@ -25,14 +25,13 @@ public class Grammar {
     }
     public ArrayList<String> generateHorizontalDerivationWord(String originalWord, String create, String created){
         ArrayList<String> horizontalDerivation = new ArrayList<>();
-        if(create != "") {
+        if(!create.equals("")) {
             ArrayList<Integer> positionProductions = getPositionProductions(getFirstNotTerminal(created),create.charAt(0)+"");
             for (Integer position: positionProductions) {
                 ArrayList<String> auxHorizontalDerivation = generateHorizontalDerivationWord(originalWord,this.eliminateFirstSymbol(create), this.replaceNotTerminalSymbol(created, position));
                 if ((auxHorizontalDerivation.size() !=0 &&auxHorizontalDerivation.get(0).equals(originalWord))|| auxHorizontalDerivation.size()> horizontalDerivation.size())
                     horizontalDerivation =   auxHorizontalDerivation;
             }
-
         }
         horizontalDerivation.add(created);
         return horizontalDerivation;
@@ -71,12 +70,21 @@ public class Grammar {
         boolean replaced = false;
         String newText = "";
         for (int i = 0; i < text.length(); i++) {
-            if(isNotTerminal(text.charAt(i)+"") && !replaced)
+            if(isNotTerminal(text.charAt(i)+"") && !replaced) {
                 newText += terminalSymbols.get(production);
+                replaced = true;
+            }
             else
                 newText += text.charAt(i)+"";
         }
         return  newText;
+    }
+
+    public boolean checkWordInGrammar(String word){
+        if(this.generateHorizontalDerivationWord(word,word,axiomaticSymbol).get(0).equals(word)){
+            return true;
+        }
+        return false;
     }
 
     public ArrayList<String> getNoTerminalSymbols() {
@@ -99,7 +107,6 @@ public class Grammar {
     public String getAxiomaticSymbol() {
         return axiomaticSymbol;
     }
-
     public void setAxiomaticSymbol(String axiomaticSymbol) {
         this.axiomaticSymbol = axiomaticSymbol;
     }
