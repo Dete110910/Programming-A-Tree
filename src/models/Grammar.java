@@ -6,11 +6,21 @@ public class Grammar {
 
     private ArrayList<String> noTerminalSymbols;
     private ArrayList<String> terminalSymbols;
+
+    private ArrayList<String> leftList;
+    private ArrayList<String> rightList;
     private String axiomaticSymbol;
 
-    public Grammar(ArrayList<String> noTerminalSymbols, ArrayList<String> terminalSymbols, String axiomaticSymbol) {
-        this.noTerminalSymbols = noTerminalSymbols;
-        this.terminalSymbols = terminalSymbols;
+    public Grammar(String[] noTerminalSymbols, String[] terminalSymbols, String axiomaticSymbol){
+        this.noTerminalSymbols =new ArrayList<>();
+        this.terminalSymbols = new ArrayList<>();
+        this.setNoTerminalSymbolsList(noTerminalSymbols);
+        this.setTerminalSymbolsList(terminalSymbols);
+        this.axiomaticSymbol = axiomaticSymbol;
+    }
+    public Grammar(ArrayList<String> leftList, ArrayList<String> rightList, ArrayList<String> noTerminalSymbols, ArrayList<String> terminalSymbols, String axiomaticSymbol) {
+        this.leftList = leftList;
+        this.rightList = rightList;
         this.axiomaticSymbol = axiomaticSymbol;
     }
 
@@ -39,8 +49,8 @@ public class Grammar {
     }
     private ArrayList<Integer> getPositionProductions(String noTerminal, String terminal){
         ArrayList<Integer> positionsProducts = new ArrayList<Integer>();
-        for (int i = 0; i < noTerminalSymbols.size(); i++) {
-            if(noTerminalSymbols.get(i).equals(noTerminal) && terminalSymbols.get(i).startsWith(terminal)){
+        for (int i = 0; i < leftList.size(); i++) {
+            if(leftList.get(i).equals(noTerminal) && rightList.get(i).startsWith(terminal)){
                 positionsProducts.add(i);
             }
         }
@@ -55,7 +65,7 @@ public class Grammar {
     }
 
     private boolean isNotTerminal(String text){
-        for (String noTerminal: noTerminalSymbols)
+        for (String noTerminal: leftList)
             if (noTerminal.equals(text))
                 return  true;
         return  false;
@@ -71,7 +81,7 @@ public class Grammar {
         String newText = "";
         for (int i = 0; i < text.length(); i++) {
             if(isNotTerminal(text.charAt(i)+"") && !replaced) {
-                newText += terminalSymbols.get(production);
+                newText += rightList.get(production);
                 replaced = true;
             }
             else
@@ -87,29 +97,47 @@ public class Grammar {
         return false;
     }
 
-    public ArrayList<String> getNoTerminalSymbols() {
-        return noTerminalSymbols;
+    public ArrayList<String> getLeftList() {
+        return leftList;
     }
 
 
-    public void setNoTerminalSymbols(ArrayList<String> noTerminalSymbols) {
-        this.noTerminalSymbols = noTerminalSymbols;
+    public void setLeftList(ArrayList<String> leftList) {
+        this.leftList = leftList;
     }
 
-    public ArrayList<String> getTerminalSymbols() {
-        return terminalSymbols;
+    public ArrayList<String> getRightList() {
+        return rightList;
     }
 
-    public void setTerminalSymbols(ArrayList<String> terminalSymbols) {
-        this.terminalSymbols = terminalSymbols;
+    public void setRightList(ArrayList<String> rightList) {
+        this.rightList = rightList;
     }
 
     public String getAxiomaticSymbol() {
-        return axiomaticSymbol;
+        return "{ "+axiomaticSymbol+" }";
     }
     public void setAxiomaticSymbol(String axiomaticSymbol) {
         this.axiomaticSymbol = axiomaticSymbol;
     }
 
+    public ArrayList<String> getNoTerminalSymbolsList() {
+        return this.noTerminalSymbols;
+    }
 
+    public void setNoTerminalSymbolsList(String[] noTerminalSymbols) {
+        for (int i = 0; i < noTerminalSymbols.length; i++) {
+            this.noTerminalSymbols.add(noTerminalSymbols[i]);
+        }
+    }
+
+    public ArrayList<String> getTerminalSymbolsList() {
+        return terminalSymbols;
+    }
+
+    public void setTerminalSymbolsList(String[] terminalSymbols) {
+        for (int i = 0; i < terminalSymbols.length; i++) {
+            this.terminalSymbols.add(terminalSymbols[i]);
+        }
+    }
 }

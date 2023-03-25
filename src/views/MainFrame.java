@@ -47,6 +47,46 @@ public class MainFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
+    public String getTerminalSymbol() {
+        return addGrammarPanel.getTerminalSymbol();
+    }
+
+    public void setTerminalSymbol(String terminalSymbol) {
+        this.addGrammarPanel.setTerminalSymbol(terminalSymbol);
+    }
+
+    public String getNonTerminalSymbol() {
+        return addGrammarPanel.getNonTerminalSymbol();
+    }
+
+    public void setNonTerminalSymbol(String nonTerminalSymbol) {
+        this.addGrammarPanel.setNonTerminalSymbol(nonTerminalSymbol);
+    }
+
+    public String getAxiomaticSymbol() {
+        return addGrammarPanel.getAxiomaticSymbol();
+    }
+
+    public void setAxiomaticSymbol(String axiomaticSymbol) {
+        this.addGrammarPanel.setAxiomaticSymbol(axiomaticSymbol);
+    }
+
+    public void setvLabel(String vLabel) {
+        this.containerGrammar.setvLabel(vLabel);
+    }
+
+    public void setSigmaValueLabel(String sigmaValueLabel) {
+        this.containerGrammar.setSigmaValueLabel(sigmaValueLabel);
+    }
+
+    public void setAxiomaticValueLabel(String axiomaticValueLabel) {
+        this.containerGrammar.setAxiomaticValueLabel(axiomaticValueLabel);
+    }
+    public String getAxiomaticValueLabel() {
+        return containerGrammar.getAxiomaticValueLabel();
+    }
+
+
     public void hideCreateDialog(){
         this.addGrammarPanel.cleanFields();
         this.addGrammarPanel.setVisible(false);

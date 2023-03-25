@@ -23,4 +23,21 @@ public class ContainerGrammar extends JPanel {
         this.add(productionsPanel, BorderLayout.PAGE_END);
     }
 
+    public void setvLabel(String vLabel) {
+        this.elementsGrammarPanel.setvLabel(vLabel);
+    }
+
+    public void setSigmaValueLabel(String sigmaValueLabel) {
+        this.elementsGrammarPanel.setSigmaValueLabel(sigmaValueLabel);
+    }
+
+
+    public String getAxiomaticValueLabel() {
+        return elementsGrammarPanel.getAxiomaticValueLabel();
+    }
+
+    public void setAxiomaticValueLabel(String axiomaticValueLabel) {
+        this.elementsGrammarPanel.setAxiomaticValueLabel(axiomaticValueLabel);
+    }
+
 }

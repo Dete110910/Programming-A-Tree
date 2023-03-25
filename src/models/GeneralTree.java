@@ -9,39 +9,39 @@ public class GeneralTree {
     private int height = 0;
 
     private String axiomaticSymbol;
-    private List<String> noTerminalSymbolsList;
-    private List<String> terminalSymbolsList;
+    private List<String> leftList;
+    private List<String> rightList;
 
     public GeneralTree(String axiomaticSymbol, String[] terminalSymbolsList, String[] nonTerminalSymbolsList){
-        this.noTerminalSymbolsList = new ArrayList<>();
-        this.terminalSymbolsList = new ArrayList<>();
+        this.leftList = new ArrayList<>();
+        this.rightList = new ArrayList<>();
         this.addNoTerminalSymbolsList(terminalSymbolsList);
         this.addTerminalSymbolsList(nonTerminalSymbolsList);
         this.axiomaticSymbol = axiomaticSymbol;
     }
 
-    public GeneralTree(ArrayList<String> terminalSymbolsProductionList, ArrayList<String> nonTerminalSymbolProductionList, Node initialNode){
-        this.terminalSymbolsList = terminalSymbolsProductionList;
-        this.noTerminalSymbolsList = nonTerminalSymbolProductionList;
+    public GeneralTree(ArrayList<String> rightList, ArrayList<String> leftList, Node initialNode){
+        this.rightList = rightList;
+        this.leftList = leftList;
         this.rootNode = initialNode;
         this.axiomaticSymbol = rootNode.getValue();
     }
 
     public void addNoTerminalSymbolsList(String[] finalSymbol){
         for (int i = 0; i < finalSymbol.length; i++) {
-            noTerminalSymbolsList.add(finalSymbol[i]);
+            leftList.add(finalSymbol[i]);
         }
     }
     public void addTerminalSymbolsList(String[] productionSymbol){
         for (int i = 0; i < productionSymbol.length; i++) {
-            terminalSymbolsList.add(productionSymbol[i]);
+            rightList.add(productionSymbol[i]);
         }
     }
 
     public void addNewNode(){
-        for(int i = 0; i < noTerminalSymbolsList.size(); i++){
-            if(rootNode.getValue().contains(noTerminalSymbolsList.get(i))){
-                rootNode.setNodeList(new Node(terminalSymbolsList.get(i), 1));
+        for(int i = 0; i < leftList.size(); i++){
+            if(rootNode.getValue().contains(leftList.get(i))){
+                rootNode.setNodeList(new Node(rightList.get(i), 1));
                 this.addNewNode(rootNode.getNodeList().get(rootNode.getNodeList().size() - 1));
             }
         }
@@ -50,10 +50,10 @@ public class GeneralTree {
         if(rootNode.getHeight() >= 5){
             return;
         }
-        for(int i = 0; i < noTerminalSymbolsList.size(); i++){
-            if(rootNode.getValue().contains(noTerminalSymbolsList.get(i))){
+        for(int i = 0; i < leftList.size(); i++){
+            if(rootNode.getValue().contains(leftList.get(i))){
                 String value = rootNode.getValue();
-                String newValue = value.replace(noTerminalSymbolsList.get(i), terminalSymbolsList.get(i));
+                String newValue = value.replace(leftList.get(i), rightList.get(i));
                 rootNode.setNodeList(new Node(newValue, rootNode.getHeight() + 1));
                 this.addNewNode(rootNode.getNodeList().get(rootNode.getNodeList().size() - 1));
             }

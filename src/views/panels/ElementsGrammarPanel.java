@@ -23,6 +23,7 @@ public class ElementsGrammarPanel extends JPanel {
         this.setVisible(true);
     }
 
+
     private void initComponents(){
         this.vLabel = new JLabel("V = ");
         this.vLabel.setFont(ConstantsGUI.FONT_PANEL);
@@ -65,5 +66,30 @@ public class ElementsGrammarPanel extends JPanel {
 
         this.add(jComponent, gridBagConstraints);
     }
+
+    public String getvLabel() {
+        return vValueLabel.getText();
+    }
+
+    public void setvLabel(String vLabel) {
+        this.vValueLabel.setText(vLabel);
+    }
+
+    public String getSigmaValueLabel() {
+        return sigmaValueLabel.getText();
+    }
+
+    public void setSigmaValueLabel(String sigmaValueLabel) {
+        this.sigmaValueLabel.setText(sigmaValueLabel);
+    }
+
+    public String getAxiomaticValueLabel() {
+        return axiomaticValueLabel.getText();
+    }
+
+    public void setAxiomaticValueLabel(String axiomaticValueLabel) {
+        this.axiomaticValueLabel.setText(axiomaticValueLabel);
+    }
+
 
 }

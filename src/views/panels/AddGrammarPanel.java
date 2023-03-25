@@ -30,7 +30,7 @@ public class AddGrammarPanel extends JDialog {
 
     private void initComponents(ActionListener listener){
 
-        addTerminalSymbol = new JLabel("Simbolo Terminal");
+        addTerminalSymbol = new JLabel("Simbolos Terminales");
         addTerminalSymbol.setFont(ConstantsGUI.FONT_MENU_BUTTONS);
         UtilitiesGUI.addComponent(this, addTerminalSymbol, 0, 0, 0,0,10,0);
 
@@ -41,7 +41,7 @@ public class AddGrammarPanel extends JDialog {
         terminalSymbol.setFont(ConstantsGUI.FONT_TABLE_BODY);
         UtilitiesGUI.addComponent(this, terminalSymbol, 1, 0, 0,0,10,0);
 
-        addNonTerminalSymbol = new JLabel("Simbolo No Terminal");
+        addNonTerminalSymbol = new JLabel("Simbolos No Terminales");
         addNonTerminalSymbol.setFont(ConstantsGUI.FONT_MENU_BUTTONS);
         UtilitiesGUI.addComponent(this, addNonTerminalSymbol, 0, 1, 0,0,10,0);
 
@@ -70,6 +70,31 @@ public class AddGrammarPanel extends JDialog {
         UtilitiesGUI.addComponent(this, cancel, 1, 4, 20,10,0,0);
 
     }
+
+    public String getTerminalSymbol() {
+        return terminalSymbol.getText();
+    }
+
+    public void setTerminalSymbol(String terminalSymbol) {
+        this.terminalSymbol.setText(terminalSymbol);
+    }
+
+    public String getNonTerminalSymbol() {
+        return nonTerminalSymbol.getText();
+    }
+
+    public void setNonTerminalSymbol(String nonTerminalSymbol) {
+        this.nonTerminalSymbol.setText(nonTerminalSymbol);
+    }
+
+    public String getAxiomaticSymbol() {
+        return axiomaticSymbol.getText();
+    }
+
+    public void setAxiomaticSymbol(String axiomaticSymbol) {
+        this.axiomaticSymbol.setText(axiomaticSymbol);
+    }
+
 
     public void cleanFields(){
         this.terminalSymbol.setText("");
