@@ -71,9 +71,9 @@ public class GeneralTree {
         return num;
     }
 
-    public void showNodeList(Node node){
-        for (int i = 0; i < node.getNodeList().size(); i++) {
-            System.out.println(node.getNodeList().get(i).getValue());
+    public void showNodeList(){
+        for (int i = 0; i < rootNode.getNodeList().size(); i++) {
+            System.out.println(rootNode.getNodeList().get(i).getValue());
         }
     }
 

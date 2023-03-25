@@ -43,7 +43,7 @@ public class ProductionsPanel extends JPanel {
 
         JScrollPane jScrollPane = new JScrollPane(jTable);
         jScrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.decode("#22577A")),
-                "Gramática", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, ConstantsGUI.FONT_TABLE_HEADER, Color.decode("#22577A")));
+                "Producciones", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION, ConstantsGUI.FONT_TABLE_HEADER, Color.decode("#22577A")));
         jScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         this.add(jScrollPane, BorderLayout.PAGE_END);
