@@ -1,6 +1,7 @@
 package presenter;
 
 import models.GeneralTree;
+import models.Grammar;
 import models.Node;
 import views.MainFrame;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class Presenter implements ActionListener {
 
     private MainFrame mainFrame;
+    private Grammar grammar;
 
     public Presenter(){
         this.mainFrame = new MainFrame(this);
@@ -34,6 +36,13 @@ public class Presenter implements ActionListener {
     }
 
     public void saveGrammar(){
+        String[] listTerminalSymbol = mainFrame.getTerminalSymbol().split(",");
+        String[] listNonTerminalSymbol = mainFrame.getNonTerminalSymbol().split(",");
+        String axiomaticSymbol = mainFrame.getAxiomaticSymbol();
+        Grammar grammar1 = new Grammar(listNonTerminalSymbol,listTerminalSymbol,axiomaticSymbol);
+        mainFrame.setvLabel(grammar1.getNoTerminalSymbolsList().toString());
+        mainFrame.setSigmaValueLabel(grammar1.getTerminalSymbolsList().toString());
+        mainFrame.setAxiomaticValueLabel(grammar1.getAxiomaticSymbol());
         mainFrame.hideCreateDialog();
     }
 

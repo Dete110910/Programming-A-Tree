@@ -18,10 +18,10 @@ public class TestHorizontalDerivation {
         terminal.add("aA");
         terminal.add("bA");
         terminal.add("b");
-        Grammar grammar = new Grammar(noTerminal,terminal, "S");
+       // Grammar grammar = new Grammar(noTerminal,terminal, "S");
 
-        System.out.println(grammar.generateHorizontalDerivationWord("aaab"));
+     //   System.out.println(grammar.generateHorizontalDerivationWord("aaab"));
 
-        System.out.println(grammar.checkWordInGrammar("aaab"));
+      //  System.out.println(grammar.checkWordInGrammar("aaab"));
     }
 }
