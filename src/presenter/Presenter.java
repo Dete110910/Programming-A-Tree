@@ -4,6 +4,7 @@ import models.GeneralTree;
 import models.Grammar;
 import models.Node;
 import views.MainFrame;
+import views.UtilitiesMessages;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,14 +52,35 @@ public class Presenter implements ActionListener {
         grammar.setNoTerminalSymbolsList(listNonTerminalSymbol);
         grammar.setAxiomaticSymbol(axiomaticSymbol);
 
+        for (int i = 0; i < listTerminalSymbol.size(); i++) {
+            if(listTerminalSymbol == null){
+                UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista", "Error");
+            }else if(Character.isUpperCase(listTerminalSymbol.get(i).charAt(i))) {
+                UtilitiesMessages.showErrorDialog("Los simbolos terminales deben ingresarse en minúscula", "Error");
+            }else{
+                this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+                this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+            }
+        }
 
-        this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-        this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-        this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
+        for (int i = 0; i < listNonTerminalSymbol.size(); i++) {
+            if(listNonTerminalSymbol == null){
+                UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista", "Error");
+            } else if(!Character.isUpperCase(listNonTerminalSymbol.get(i).charAt(i))){
+                UtilitiesMessages.showErrorDialog("Los simbolos no terminales deben ingresarse en Mayúscula", "Error");
+            }else{
+                this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+                this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+            }
+        }
+
+        if(axiomaticSymbol.length() == 1){
+            this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
+        }else{
+            UtilitiesMessages.showErrorDialog("Solo se puede establecer un simbolo axiomatico", "Error");
+        }
+
         this.mainFrame.hideCreateDialog();
-
-
-
     }
 
 
