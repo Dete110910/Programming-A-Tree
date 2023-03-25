@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class AddGrammarPanel extends JDialog {
     private ButtonAction saveGrammar, cancel;
-    private JLabel addTerminalSymbol, addNonTerminalSymbol, addAxiomaticSymbol;
+    private JLabel text,addTerminalSymbol, addNonTerminalSymbol, addAxiomaticSymbol;
     private JTextField terminalSymbol, nonTerminalSymbol, axiomaticSymbol;
 
     public AddGrammarPanel(ActionListener listener){
@@ -19,7 +19,7 @@ public class AddGrammarPanel extends JDialog {
         this.setTitle("Añadir Gramatica");
         this.setLayout(new GridBagLayout());
         this.setFont(ConstantsGUI.FONT_TABLE_HEADER);
-        this.setSize(500, 300);
+        this.setSize(600, 400);
         this.setUndecorated(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -29,22 +29,23 @@ public class AddGrammarPanel extends JDialog {
     }
 
     private void initComponents(ActionListener listener){
-        addTerminalSymbol = new JLabel("Simbolo Terminal");
+
+        addTerminalSymbol = new JLabel("Simbolos Terminales");
         addTerminalSymbol.setFont(ConstantsGUI.FONT_MENU_BUTTONS);
         UtilitiesGUI.addComponent(this, addTerminalSymbol, 0, 0, 0,0,10,0);
 
-        terminalSymbol = new JTextField(10);
+        terminalSymbol = new JTextField(15);
         terminalSymbol.setSize(100,50);
         terminalSymbol.setPreferredSize(new Dimension(100,30));
         terminalSymbol.setBackground(Color.WHITE);
         terminalSymbol.setFont(ConstantsGUI.FONT_TABLE_BODY);
         UtilitiesGUI.addComponent(this, terminalSymbol, 1, 0, 0,0,10,0);
 
-        addNonTerminalSymbol = new JLabel("Simbolo No Terminal");
+        addNonTerminalSymbol = new JLabel("Simbolos No Terminales");
         addNonTerminalSymbol.setFont(ConstantsGUI.FONT_MENU_BUTTONS);
         UtilitiesGUI.addComponent(this, addNonTerminalSymbol, 0, 1, 0,0,10,0);
 
-        nonTerminalSymbol = new JTextField(10);
+        nonTerminalSymbol = new JTextField(15);
         nonTerminalSymbol.setSize(100,50);
         nonTerminalSymbol.setPreferredSize(new Dimension(100,30));
         nonTerminalSymbol.setBackground(Color.WHITE);
@@ -55,24 +56,52 @@ public class AddGrammarPanel extends JDialog {
         addAxiomaticSymbol.setFont(ConstantsGUI.FONT_MENU_BUTTONS);
         UtilitiesGUI.addComponent(this, addAxiomaticSymbol, 0, 2, 0,0,0,0);
 
-        axiomaticSymbol = new JTextField(10);
+        axiomaticSymbol = new JTextField(15);
         axiomaticSymbol.setSize(100,50);
         axiomaticSymbol.setPreferredSize(new Dimension(100,30));
         axiomaticSymbol.setBackground(Color.WHITE);
         axiomaticSymbol.setFont(ConstantsGUI.FONT_TABLE_BODY);
         UtilitiesGUI.addComponent(this, axiomaticSymbol, 1, 2, 0,0,0,0);
 
-        saveGrammar = new ButtonAction("Añadir", listener, "Añadir");
-        UtilitiesGUI.addComponent(this, saveGrammar, 0, 3, 20,10,0,0);
+        saveGrammar = new ButtonAction("Guardar", listener, "Guardar");
+        UtilitiesGUI.addComponent(this, saveGrammar, 0, 4, 20,10,0,0);
 
         cancel = new ButtonAction("Cancelar", listener, "Cancelar");
-        UtilitiesGUI.addComponent(this, cancel, 1, 3, 20,10,0,0);
+        UtilitiesGUI.addComponent(this, cancel, 1, 4, 20,10,0,0);
 
     }
 
-    public void getTerminalSymbols() {
 
+    public String getTerminalSymbols() {
+        return terminalSymbol.getText();
     }
+
+
+    public String getTerminalSymbol() {
+        return terminalSymbol.getText();
+    }
+
+    public void setTerminalSymbol(String terminalSymbol) {
+        this.terminalSymbol.setText(terminalSymbol);
+    }
+
+    public String getNonTerminalSymbol() {
+        return nonTerminalSymbol.getText();
+    }
+
+    public void setNonTerminalSymbol(String nonTerminalSymbol) {
+        this.nonTerminalSymbol.setText(nonTerminalSymbol);
+    }
+
+    public String getAxiomaticSymbol() {
+        return axiomaticSymbol.getText();
+    }
+
+    public void setAxiomaticSymbol(String axiomaticSymbol) {
+        this.axiomaticSymbol.setText(axiomaticSymbol);
+    }
+
+
 
     public void cleanFields(){
         this.terminalSymbol.setText("");

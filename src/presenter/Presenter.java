@@ -1,19 +1,23 @@
 package presenter;
 
 import models.GeneralTree;
+import models.Grammar;
 import models.Node;
 import views.MainFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Presenter implements ActionListener {
 
     private MainFrame mainFrame;
+    private Grammar grammar;
 
     public Presenter(){
         this.mainFrame = new MainFrame(this);
+        this.grammar = new Grammar();
     }
 
     @Override
@@ -21,7 +25,8 @@ public class Presenter implements ActionListener {
         switch (e.getActionCommand()){
             case "Enter Grammar":
                 this.enterGrammar();
-            case "Añadir":
+                break;
+            case "Guardar":
                 this.saveGrammar();
                 break;
             case "View General Tree":
@@ -38,8 +43,22 @@ public class Presenter implements ActionListener {
     }
 
     public void saveGrammar(){
-        this.mainFrame.getTerminalSymbols();
+        ArrayList<String> listTerminalSymbol = new ArrayList<>(Arrays.asList(mainFrame.getTerminalSymbol().split(",")));
+        ArrayList<String> listNonTerminalSymbol = new ArrayList<>(Arrays.asList(mainFrame.getNonTerminalSymbol().split(",")));
+        String axiomaticSymbol = mainFrame.getAxiomaticSymbol();
+
+        grammar.setTerminalSymbolsList(listTerminalSymbol);
+        grammar.setNoTerminalSymbolsList(listNonTerminalSymbol);
+        grammar.setAxiomaticSymbol(axiomaticSymbol);
+
+
+        this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+        this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+        this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
         this.mainFrame.hideCreateDialog();
+
+
+
     }
 
 
