@@ -1,5 +1,6 @@
 package views;
 
+import views.panels.AddGrammarPanel;
 import views.panels.ContainerGrammar;
 import views.panels.MainMenuPanel;
 
@@ -14,6 +15,8 @@ public class MainFrame extends JFrame {
 
     private MainMenuPanel mainMenuPanel;
     private ContainerGrammar containerGrammar;
+
+    private AddGrammarPanel addGrammarPanel;
 
     public MainFrame(ActionListener listener){
         this.setTitle("Validador de Gramática");
@@ -32,10 +35,22 @@ public class MainFrame extends JFrame {
 
         this.add(mainMenuPanel, BorderLayout.NORTH);
         this.add(containerGrammar, BorderLayout.CENTER);
+
+        this.addGrammarPanel = new AddGrammarPanel(listener);
     }
 
-    public void showEnterGrammarMenu(){
+    private void hideAllPanels(){
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+    public void showEnterGrammar(){
+        this.addGrammarPanel.setVisible(true);
+        SwingUtilities.updateComponentTreeUI(this);
+    }
 
+    public void hideCreateDialog(){
+        this.addGrammarPanel.cleanFields();
+        this.addGrammarPanel.setVisible(false);
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
 }
