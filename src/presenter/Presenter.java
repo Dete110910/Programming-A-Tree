@@ -21,7 +21,7 @@ public class Presenter implements ActionListener {
         switch (e.getActionCommand()){
             case "Enter Grammar":
                 this.enterGrammar();
-            case "Añadir":
+            case "Guardar":
                 this.saveGrammar();
                 break;
             case "Cancelar":
