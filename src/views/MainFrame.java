@@ -1,5 +1,6 @@
 package views;
 
+import models.Node;
 import views.panels.AddGrammarPanel;
 import views.panels.ContainerGrammar;
 import views.panels.MainMenuPanel;
@@ -47,6 +48,12 @@ public class MainFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
+
+
+    public String getTerminalSymbols(){
+       return this.addGrammarPanel.getTerminalSymbols();
+    }
+
     public String getTerminalSymbol() {
         return addGrammarPanel.getTerminalSymbol();
     }
@@ -90,6 +97,11 @@ public class MainFrame extends JFrame {
     public void hideCreateDialog(){
         this.addGrammarPanel.cleanFields();
         this.addGrammarPanel.setVisible(false);
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+
+    public void showGeneralDerivationTreePaintedPanel(Node node){
+        this.containerGrammar.addGeneralTreePaintedPanel(node);
         SwingUtilities.updateComponentTreeUI(this);
     }
 

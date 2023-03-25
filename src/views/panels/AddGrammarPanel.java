@@ -71,6 +71,12 @@ public class AddGrammarPanel extends JDialog {
 
     }
 
+
+    public String getTerminalSymbols() {
+        return terminalSymbol.getText();
+    }
+
+
     public String getTerminalSymbol() {
         return terminalSymbol.getText();
     }
@@ -96,9 +102,12 @@ public class AddGrammarPanel extends JDialog {
     }
 
 
+
     public void cleanFields(){
         this.terminalSymbol.setText("");
         this.nonTerminalSymbol.setText("");
         this.axiomaticSymbol.setText("");
     }
+
+
 }

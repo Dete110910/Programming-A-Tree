@@ -8,6 +8,7 @@ import views.MainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Presenter implements ActionListener {
 
@@ -16,6 +17,7 @@ public class Presenter implements ActionListener {
 
     public Presenter(){
         this.mainFrame = new MainFrame(this);
+        this.grammar = new Grammar();
     }
 
     @Override
@@ -23,31 +25,62 @@ public class Presenter implements ActionListener {
         switch (e.getActionCommand()){
             case "Enter Grammar":
                 this.enterGrammar();
+                break;
             case "Guardar":
                 this.saveGrammar();
+                break;
+            case "View General Tree":
+                this.viewGeneralTree();
                 break;
             case "Cancelar":
                 this.cancelAddGrammar();
         }
     }
 
+
     private void enterGrammar(){
-        mainFrame.showEnterGrammar();
+        this.mainFrame.showEnterGrammar();
     }
 
     public void saveGrammar(){
-        String[] listTerminalSymbol = mainFrame.getTerminalSymbol().split(",");
-        String[] listNonTerminalSymbol = mainFrame.getNonTerminalSymbol().split(",");
+        ArrayList<String> listTerminalSymbol = new ArrayList<>(Arrays.asList(mainFrame.getTerminalSymbol().split(",")));
+        ArrayList<String> listNonTerminalSymbol = new ArrayList<>(Arrays.asList(mainFrame.getNonTerminalSymbol().split(",")));
         String axiomaticSymbol = mainFrame.getAxiomaticSymbol();
-        Grammar grammar1 = new Grammar(listNonTerminalSymbol,listTerminalSymbol,axiomaticSymbol);
-        mainFrame.setvLabel(grammar1.getNoTerminalSymbolsList().toString());
-        mainFrame.setSigmaValueLabel(grammar1.getTerminalSymbolsList().toString());
-        mainFrame.setAxiomaticValueLabel(grammar1.getAxiomaticSymbol());
-        mainFrame.hideCreateDialog();
+
+        grammar.setTerminalSymbolsList(listTerminalSymbol);
+        grammar.setNoTerminalSymbolsList(listNonTerminalSymbol);
+        grammar.setAxiomaticSymbol(axiomaticSymbol);
+
+
+        this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+        this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+        this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
+        this.mainFrame.hideCreateDialog();
+
+
+
     }
 
+
     public void cancelAddGrammar(){
-        mainFrame.hideCreateDialog();
+        this.mainFrame.hideCreateDialog();
+    }
+
+    private void viewGeneralTree() {
+        ArrayList<String> nonTerminalSymbolsList = new ArrayList<>();
+        nonTerminalSymbolsList.add("S");
+        nonTerminalSymbolsList.add("S");
+        nonTerminalSymbolsList.add("S");
+        ArrayList<String> terminalSymbolsList = new ArrayList<>();
+        terminalSymbolsList.add("a");
+        terminalSymbolsList.add("Sa");
+        terminalSymbolsList.add("Sb");
+
+        GeneralTree generalTree = new GeneralTree(terminalSymbolsList,nonTerminalSymbolsList, new Node("S"));
+        generalTree.addNewNode();
+        //generalTree.showNodeList();
+        this.mainFrame.showGeneralDerivationTreePaintedPanel(generalTree.rootNode);
+
     }
 
     private void validateGrammar(){
@@ -60,6 +93,8 @@ public class Presenter implements ActionListener {
     public static void main(String[] args) {
         new Presenter();
 
+        /**
+
         ArrayList<String> nonTerminalSymbolsList = new ArrayList<>();
         nonTerminalSymbolsList.add("S");
         nonTerminalSymbolsList.add("S");
@@ -69,8 +104,11 @@ public class Presenter implements ActionListener {
         terminalSymbolsList.add("Sa");
         terminalSymbolsList.add("Sb");
 
-        GeneralTree generalTree = new GeneralTree(terminalSymbolsList,nonTerminalSymbolsList,new Node("S"));
+        GeneralTree generalTree = new GeneralTree(terminalSymbolsList,nonTerminalSymbolsList, new Node("S"));
         generalTree.addNewNode();
         generalTree.showNodeList();
+
+         */
+
     }
 }

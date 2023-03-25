@@ -1,5 +1,7 @@
 package views.panels;
 
+import models.Node;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,6 +9,8 @@ public class ContainerGrammar extends JPanel {
 
     private ElementsGrammarPanel elementsGrammarPanel;
     private ProductionsPanel productionsPanel;
+
+    private GeneralTreePaintedPanel generalTreePaintedPanel;
 
 
     public ContainerGrammar(){
@@ -19,8 +23,24 @@ public class ContainerGrammar extends JPanel {
         this.elementsGrammarPanel = new ElementsGrammarPanel();
         this.productionsPanel = new ProductionsPanel();
 
-        this.add(elementsGrammarPanel, BorderLayout.PAGE_START);
-        this.add(productionsPanel, BorderLayout.PAGE_END);
+        this.generalTreePaintedPanel = new GeneralTreePaintedPanel();
+
+        this.add(elementsGrammarPanel);
+        this.add(productionsPanel);
+    }
+
+    public void addGeneralTreePaintedPanel(Node node){
+        this.removeAllPanels();
+        this.generalTreePaintedPanel.setRoot(node);
+        this.add(elementsGrammarPanel);
+        this.add(generalTreePaintedPanel);
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+
+    private void removeAllPanels(){
+        this.remove(elementsGrammarPanel);
+        this.remove(productionsPanel);
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     public void setvLabel(String vLabel) {

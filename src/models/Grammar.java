@@ -11,13 +11,20 @@ public class Grammar {
     private ArrayList<String> rightList;
     private String axiomaticSymbol;
 
-    public Grammar(String[] noTerminalSymbols, String[] terminalSymbols, String axiomaticSymbol){
-        this.noTerminalSymbols =new ArrayList<>();
-        this.terminalSymbols = new ArrayList<>();
-        this.setNoTerminalSymbolsList(noTerminalSymbols);
-        this.setTerminalSymbolsList(terminalSymbols);
+    public Grammar(){
+        this.leftList = new ArrayList<String>();
+        this.rightList = new ArrayList<String>();
+        this.terminalSymbols = new ArrayList<String>();
+        this.noTerminalSymbols = new ArrayList<String>();
+        this.axiomaticSymbol = "";
+
+    }
+    public Grammar(ArrayList<String> terminalSymbols, ArrayList<String> noTerminalSymbols, String axiomaticSymbol){
+        this.terminalSymbols = terminalSymbols;
+        this.noTerminalSymbols = noTerminalSymbols;
         this.axiomaticSymbol = axiomaticSymbol;
     }
+
     public Grammar(ArrayList<String> leftList, ArrayList<String> rightList, ArrayList<String> noTerminalSymbols, ArrayList<String> terminalSymbols, String axiomaticSymbol) {
         this.leftList = leftList;
         this.rightList = rightList;
@@ -125,19 +132,26 @@ public class Grammar {
         return this.noTerminalSymbols;
     }
 
-    public void setNoTerminalSymbolsList(String[] noTerminalSymbols) {
-        for (int i = 0; i < noTerminalSymbols.length; i++) {
-            this.noTerminalSymbols.add(noTerminalSymbols[i]);
-        }
+    public void setNoTerminalSymbolsList(ArrayList<String> noTerminalSymbols) {
+        this.noTerminalSymbols = noTerminalSymbols;
     }
 
     public ArrayList<String> getTerminalSymbolsList() {
         return terminalSymbols;
     }
 
-    public void setTerminalSymbolsList(String[] terminalSymbols) {
-        for (int i = 0; i < terminalSymbols.length; i++) {
-            this.terminalSymbols.add(terminalSymbols[i]);
-        }
+    public void setTerminalSymbolsList(ArrayList<String> terminalSymbols) {
+        this.terminalSymbols = terminalSymbols;
+    }
+
+    @Override
+    public String toString() {
+        return "Grammar{" +
+                "noTerminalSymbols=" + noTerminalSymbols +
+                ", terminalSymbols=" + terminalSymbols +
+                ", leftList=" + leftList +
+                ", rightList=" + rightList +
+                ", axiomaticSymbol='" + axiomaticSymbol + '\'' +
+                '}';
     }
 }
