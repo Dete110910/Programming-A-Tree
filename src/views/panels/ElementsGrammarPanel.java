@@ -11,7 +11,7 @@ public class ElementsGrammarPanel extends JPanel {
     private JLabel vLabel, sigmaLabel, axiomaticLabel, vValueLabel, sigmaValueLabel, axiomaticValueLabel;
 
     private final int WIDTH = 400;
-    private final int HEIGHT = 300;
+    private final int HEIGHT = 200;
 
 
     public ElementsGrammarPanel(){
