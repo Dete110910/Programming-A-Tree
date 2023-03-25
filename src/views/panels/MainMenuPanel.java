@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class MainMenuPanel extends JPanel {
 
     private final int WIDTH = 300;
-    private final int  HEIGHT = 1000;
+    private final int  HEIGHT = 100;
 
     private JLabel label;
     private MenuButton showEnterGrammarMenu;

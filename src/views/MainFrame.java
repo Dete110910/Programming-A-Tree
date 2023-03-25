@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
         this.mainMenuPanel = new MainMenuPanel(listener);
         this.containerGrammar = new ContainerGrammar();
 
-        this.add(mainMenuPanel, BorderLayout.WEST);
+        this.add(mainMenuPanel, BorderLayout.NORTH);
         this.add(containerGrammar, BorderLayout.CENTER);
     }
 

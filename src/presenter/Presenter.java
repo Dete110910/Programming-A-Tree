@@ -1,9 +1,12 @@
 package presenter;
 
+import models.GeneralTree;
+import models.Node;
 import views.MainFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Presenter implements ActionListener {
 
@@ -35,5 +38,18 @@ public class Presenter implements ActionListener {
 
     public static void main(String[] args) {
         new Presenter();
+
+        ArrayList<String> nonTerminalSymbolsList = new ArrayList<>();
+        nonTerminalSymbolsList.add("S");
+        nonTerminalSymbolsList.add("S");
+        nonTerminalSymbolsList.add("S");
+        ArrayList<String> terminalSymbolsList = new ArrayList<>();
+        terminalSymbolsList.add("a");
+        terminalSymbolsList.add("Sa");
+        terminalSymbolsList.add("Sb");
+
+        GeneralTree generalTree = new GeneralTree(terminalSymbolsList,nonTerminalSymbolsList,new Node("S"));
+        generalTree.addNewNode();
+        generalTree.showNodeList();
     }
 }
