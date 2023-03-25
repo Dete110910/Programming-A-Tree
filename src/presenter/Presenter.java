@@ -24,21 +24,44 @@ public class Presenter implements ActionListener {
             case "Añadir":
                 this.saveGrammar();
                 break;
+            case "View General Tree":
+                this.viewGeneralTree();
+                break;
             case "Cancelar":
                 this.cancelAddGrammar();
         }
     }
 
+
     private void enterGrammar(){
-        mainFrame.showEnterGrammar();
+        this.mainFrame.showEnterGrammar();
     }
 
     public void saveGrammar(){
-        mainFrame.hideCreateDialog();
+        this.mainFrame.getTerminalSymbols();
+        this.mainFrame.hideCreateDialog();
     }
 
+
     public void cancelAddGrammar(){
-        mainFrame.hideCreateDialog();
+        this.mainFrame.hideCreateDialog();
+    }
+
+    private void viewGeneralTree() {
+        ArrayList<String> nonTerminalSymbolsList = new ArrayList<>();
+        nonTerminalSymbolsList.add("S");
+        nonTerminalSymbolsList.add("S");
+        nonTerminalSymbolsList.add("S");
+        ArrayList<String> terminalSymbolsList = new ArrayList<>();
+        terminalSymbolsList.add("a");
+        terminalSymbolsList.add("Sa");
+        terminalSymbolsList.add("Sb");
+
+        GeneralTree generalTree = new GeneralTree(terminalSymbolsList,nonTerminalSymbolsList, new Node("S"));
+        generalTree.addNewNode();
+        //generalTree.showNodeList();
+        this.mainFrame.showGeneralDerivationTreePaintedPanel(generalTree.rootNode);
+
     }
 
     private void validateGrammar(){
@@ -51,6 +74,8 @@ public class Presenter implements ActionListener {
     public static void main(String[] args) {
         new Presenter();
 
+        /**
+
         ArrayList<String> nonTerminalSymbolsList = new ArrayList<>();
         nonTerminalSymbolsList.add("S");
         nonTerminalSymbolsList.add("S");
@@ -60,8 +85,11 @@ public class Presenter implements ActionListener {
         terminalSymbolsList.add("Sa");
         terminalSymbolsList.add("Sb");
 
-        GeneralTree generalTree = new GeneralTree(terminalSymbolsList,nonTerminalSymbolsList,new Node("S"));
+        GeneralTree generalTree = new GeneralTree(terminalSymbolsList,nonTerminalSymbolsList, new Node("S"));
         generalTree.addNewNode();
         generalTree.showNodeList();
+
+         */
+
     }
 }

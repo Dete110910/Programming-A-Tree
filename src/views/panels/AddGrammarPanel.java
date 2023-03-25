@@ -70,9 +70,15 @@ public class AddGrammarPanel extends JDialog {
 
     }
 
+    public void getTerminalSymbols() {
+
+    }
+
     public void cleanFields(){
         this.terminalSymbol.setText("");
         this.nonTerminalSymbol.setText("");
         this.axiomaticSymbol.setText("");
     }
+
+
 }
