@@ -4,6 +4,7 @@ import models.GeneralTree;
 import models.Grammar;
 import models.Node;
 import views.MainFrame;
+import views.UtilitiesMessages;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,24 +56,34 @@ public class Presenter implements ActionListener {
         grammar.setNoTerminalSymbolsList(listNonTerminalSymbol);
         grammar.setAxiomaticSymbol(axiomaticSymbol);
 
-
-        this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-        this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-        this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
-        this.mainFrame.hideCreateDialog();
-
-
-
+        if (validateEmptyList(listTerminalSymbol)){
+            UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista de Símbolos Terminales", "Error");
+        }else if (validateUpperCaseTerminalList(listTerminalSymbol)){
+            UtilitiesMessages.showErrorDialog("Los Simbolos Terminales deben ingresarse en minúscula", "Error");
+        } else if (validateEmptyList(listNonTerminalSymbol)) {
+            UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista Símbolos No Terminales", "Error");
+        } else if (validateUpperCaseNonTerminalList(listNonTerminalSymbol)) {
+            UtilitiesMessages.showErrorDialog("Los simbolos No terminales deben ingresarse en mayúscula", "Error");
+        } else if (validateAxiomaticSymbol(axiomaticSymbol)) {
+            UtilitiesMessages.showErrorDialog("Debe establecer uno y solo un Símbolo Axiomático", "Error");
+        } else if (!validateContainAxiomaticSymbol(axiomaticSymbol,listNonTerminalSymbol)) {
+            UtilitiesMessages.showErrorDialog("El Simbolo Axiomático debe pertenecer al conjunto de los Simbolos No Terminales", "Error");
+        } else if(!isProductionsValid){
+            UtilitiesMessages.showErrorDialog("Las producciones ingresadas no son correctas", "Error");
+        }
+        else {
+            this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{ ").replace("]", " }"));
+            this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{ ").replace("]", " }"));
+            this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
+            this.mainFrame.hideCreateDialog();
+        }
     }
+
 
     private boolean validateProductions(ArrayList<String> productionsList, ArrayList<String> terminalList, ArrayList<String> noTerminalsList) {
         ArrayList<ArrayList<String>> productionMatrix = this.parseProductionsToMatrix(productionsList);
         boolean isValid = true;
-        System.out.println(noTerminalsList);
-        System.out.println(terminalList);
         for(int i = 0; i < productionMatrix.size(); i++){
-            System.out.println(productionMatrix.get(i).get(0));
-            System.out.println(productionMatrix.get(i).get(1));
             if(!noTerminalsList.contains(productionMatrix.get(i).get(0)) || !terminalList.contains(productionMatrix.get(i).get(1)))
                 isValid = false;
         }
@@ -88,9 +99,69 @@ public class Presenter implements ActionListener {
             }
             productionMatrix.add(productionsRow);
         }
-        System.out.println(productionMatrix);
-        System.out.println(productionMatrix.get(0).get(0));
         return  productionMatrix;
+    }
+
+    private boolean validateEmptyList(ArrayList<String> listTerminalSymbol) {
+        for(int i = 0; i < listTerminalSymbol.size(); i++){
+            if(listTerminalSymbol.get(i).trim().equals("")){
+                return true;
+            }
+        }
+            return false;
+    }
+
+    private boolean validateUpperCaseTerminalList(ArrayList<String> listTerminalSymbol){
+        boolean list = false;
+        for (int i = 0; i < listTerminalSymbol.size(); i++) {
+            for (int j = 0; j < listTerminalSymbol.get(i).length(); j++) {
+                if(Character.isUpperCase(listTerminalSymbol.get(i).charAt(j))){
+                    list = true;
+                }
+            }
+        }
+        return list;
+    }
+
+
+    private boolean validateUpperCaseNonTerminalList(ArrayList<String> listNonTerminalSymbol){
+        boolean list = false;
+        for (int i = 0; i < listNonTerminalSymbol.size(); i++) {
+            for (int j = 0; j < listNonTerminalSymbol.get(i).length(); j++) {
+                if(!Character.isUpperCase(listNonTerminalSymbol.get(i).charAt(j))){
+                    list = true;
+                }
+            }
+        }
+        return list;
+    }
+
+    private boolean validateAxiomaticSymbol(String axiomaticSymbol){
+        boolean list = false;
+        if(axiomaticSymbol.length() != 1){
+            list = true;
+        }
+        return list;
+    }
+
+    private boolean validateContainAxiomaticSymbol(String axiomaticSymbol, ArrayList<String> listNonTerminalSymbol){
+        boolean list = false;
+        if(listNonTerminalSymbol.contains(axiomaticSymbol)){
+            list = true;
+        }
+        return list;
+    }
+
+    private boolean validateIntersectionList(ArrayList<String> listTerminalSymbol,ArrayList<String> listNonTerminalSymbol){
+        boolean list = false;
+        for (int i = 0; i < listTerminalSymbol.size(); i++) {
+            for (int j = 0; j < listNonTerminalSymbol.size(); j++) {
+                if(listNonTerminalSymbol.get(i).contains(listNonTerminalSymbol.get(j))){
+                    list = true;
+                }
+            }
+        }
+        return list;
     }
 
 
