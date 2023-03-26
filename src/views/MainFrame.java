@@ -78,6 +78,10 @@ public class MainFrame extends JFrame {
         this.addGrammarPanel.setAxiomaticSymbol(axiomaticSymbol);
     }
 
+    public String getProductions(){
+        return this.addGrammarPanel.getProductions();
+    }
+
     public void setvLabel(String vLabel) {
         this.containerGrammar.setvLabel(vLabel);
     }
