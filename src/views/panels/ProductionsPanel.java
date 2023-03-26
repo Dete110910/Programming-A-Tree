@@ -66,7 +66,7 @@ public class ProductionsPanel extends JPanel {
         this.setBorder(null);
     }
 
-    
+
 
     private Object[][] getTableData() {
         Object[][] data = new Object[jTable.getRowCount()][3];
@@ -79,7 +79,7 @@ public class ProductionsPanel extends JPanel {
     }
 
 
-    public void setDefaultTableModel(String[][] defaultTableModel){
+    public void setDefaultTableModel(Object[][] defaultTableModel){
 
         this.defaultTableModel = new DefaultTableModel(defaultTableModel, HEADERS){
             @Override
@@ -91,11 +91,6 @@ public class ProductionsPanel extends JPanel {
 
     }
 
-    public void setTerminalSymbols(ArrayList<String> terminalSymbols) {
-        this.terminalSymbols = terminalSymbols;
-    }
 
-    public void setNoTerminalSymbols(ArrayList<String> noTerminalSymbols) {
-        this.noTerminalSymbols = noTerminalSymbols;
-    }
+
 }
