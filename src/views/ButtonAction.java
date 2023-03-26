@@ -12,7 +12,7 @@ public class ButtonAction extends JButton {
     public ButtonAction(String buttonText, ActionListener listener, String actionCommand){
         super(buttonText);
         this.setBackground(Color.decode("#38A3A5"));
-        this.setForeground(Color.WHITE);
+        this.setForeground(Color.BLACK);
         this.setFont(ConstantsGUI.FONT_MENU_BUTTONS);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setActionCommand(actionCommand);

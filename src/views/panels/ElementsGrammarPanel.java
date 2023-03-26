@@ -16,7 +16,7 @@ public class ElementsGrammarPanel extends JPanel {
 
     public ElementsGrammarPanel(){
         this.setSize(WIDTH, HEIGHT);
-        this.setBackground(Color.decode("#80ED99"));
+        this.setBackground(Color.decode("#ade8f4"));
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setLayout(new GridBagLayout());
         this.initComponents();

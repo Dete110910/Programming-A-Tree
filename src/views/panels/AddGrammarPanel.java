@@ -24,7 +24,7 @@ public class AddGrammarPanel extends JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.getContentPane().setBackground(Color.decode("#22577A"));
+        this.getContentPane().setBackground(Color.decode("#89c2d9"));
         initComponents(listener);
     }
 
