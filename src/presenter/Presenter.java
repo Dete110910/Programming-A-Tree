@@ -46,6 +46,10 @@ public class Presenter implements ActionListener {
         ArrayList<String> listTerminalSymbol = new ArrayList<>(Arrays.asList(mainFrame.getTerminalSymbol().split(",")));
         ArrayList<String> listNonTerminalSymbol = new ArrayList<>(Arrays.asList(mainFrame.getNonTerminalSymbol().split(",")));
         String axiomaticSymbol = mainFrame.getAxiomaticSymbol();
+        ArrayList<String> productionsList = new ArrayList<>(Arrays.asList(this.mainFrame.getProductions().split(";")));
+        boolean isProductionsValid = this.validateProductions(productionsList, listTerminalSymbol, listNonTerminalSymbol);
+
+
 
         grammar.setTerminalSymbolsList(listTerminalSymbol);
         grammar.setNoTerminalSymbolsList(listNonTerminalSymbol);
@@ -59,6 +63,34 @@ public class Presenter implements ActionListener {
 
 
 
+    }
+
+    private boolean validateProductions(ArrayList<String> productionsList, ArrayList<String> terminalList, ArrayList<String> noTerminalsList) {
+        ArrayList<ArrayList<String>> productionMatrix = this.parseProductionsToMatrix(productionsList);
+        boolean isValid = true;
+        System.out.println(noTerminalsList);
+        System.out.println(terminalList);
+        for(int i = 0; i < productionMatrix.size(); i++){
+            System.out.println(productionMatrix.get(i).get(0));
+            System.out.println(productionMatrix.get(i).get(1));
+            if(!noTerminalsList.contains(productionMatrix.get(i).get(0)) || !terminalList.contains(productionMatrix.get(i).get(1)))
+                isValid = false;
+        }
+        return isValid;
+    }
+
+    private ArrayList<ArrayList<String>> parseProductionsToMatrix(ArrayList<String> productionsList) {
+        ArrayList<ArrayList<String>> productionMatrix = new ArrayList<>();
+        for(int i = 0; i < productionsList.size(); i++){
+            ArrayList<String> productionsRow = new ArrayList<>(Arrays.asList(productionsList.get(i).split(",")));
+            if(productionsRow.size() < 2){
+                productionsRow.add(" ");
+            }
+            productionMatrix.add(productionsRow);
+        }
+        System.out.println(productionMatrix);
+        System.out.println(productionMatrix.get(0).get(0));
+        return  productionMatrix;
     }
 
 
