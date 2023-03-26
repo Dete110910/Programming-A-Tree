@@ -78,6 +78,10 @@ public class MainFrame extends JFrame {
         this.addGrammarPanel.setAxiomaticSymbol(axiomaticSymbol);
     }
 
+    public String getProductions(){
+        return this.addGrammarPanel.getProductions();
+    }
+
     public void setvLabel(String vLabel) {
         this.containerGrammar.setvLabel(vLabel);
     }
@@ -105,4 +109,7 @@ public class MainFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
+    public void setProductions(Object[][] parseArrayListToMatrixObject) {
+        this.containerGrammar.setProductions(parseArrayListToMatrixObject);
+    }
 }

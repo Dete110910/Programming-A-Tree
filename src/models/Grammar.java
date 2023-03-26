@@ -103,8 +103,21 @@ public class Grammar {
         return newText;
     }
 
-    public boolean checkWordInGrammar(String word) {
-        if (this.generateHorizontalDerivationWord(word, word, axiomaticSymbol).get(0).equals(word)) {
+    public Object[][] parseArrayListToMatrixObject(){
+        int sizeList = this.leftList.size();
+        Object[][] processList = new Object[sizeList][3];
+
+        for(int i = 0; i < sizeList; i++){
+            processList[i][0] = this.leftList.get(i);
+            processList[i][1] = "-->";
+            processList[i][2] = this.rightList.get(i);
+        }
+
+        return processList;
+    }
+
+    public boolean checkWordInGrammar(String word){
+        if(this.generateHorizontalDerivationWord(word,word,axiomaticSymbol).get(0).equals(word)){
             return true;
         }
         return false;
@@ -221,6 +234,8 @@ public class Grammar {
     public void setTerminalSymbolsList(ArrayList<String> terminalSymbols) {
         this.terminalSymbols = terminalSymbols;
     }
+
+
 
     @Override
     public String toString() {

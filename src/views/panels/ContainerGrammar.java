@@ -60,4 +60,7 @@ public class ContainerGrammar extends JPanel {
         this.elementsGrammarPanel.setAxiomaticValueLabel(axiomaticValueLabel);
     }
 
+    public void setProductions(Object[][] parseArrayListToMatrixObject) {
+        this.productionsPanel.setDefaultTableModel(parseArrayListToMatrixObject);
+    }
 }
