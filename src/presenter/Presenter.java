@@ -52,37 +52,93 @@ public class Presenter implements ActionListener {
         grammar.setNoTerminalSymbolsList(listNonTerminalSymbol);
         grammar.setAxiomaticSymbol(axiomaticSymbol);
 
-        for (int i = 0; i < listTerminalSymbol.size(); i++) {
-            if(listTerminalSymbol == null){
-                UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista", "Error");
-            }else if(Character.isUpperCase(listTerminalSymbol.get(i).charAt(i))) {
-                UtilitiesMessages.showErrorDialog("Los simbolos terminales deben ingresarse en minúscula", "Error");
-            }else{
-                this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-                this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-            }
-        }
-
-        for (int i = 0; i < listNonTerminalSymbol.size(); i++) {
-            if(listNonTerminalSymbol == null){
-                UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista", "Error");
-            } else if(!Character.isUpperCase(listNonTerminalSymbol.get(i).charAt(i))){
-                UtilitiesMessages.showErrorDialog("Los simbolos no terminales deben ingresarse en Mayúscula", "Error");
-            }else{
-                this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-                this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
-            }
-        }
-
-        if(axiomaticSymbol.length() == 1){
-            this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
-        }else{
+        if (validateEmptyTerminalList(listTerminalSymbol)){
+            UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista", "Error");
+        }else if (validateUpperCaseTerminalList(listTerminalSymbol)){
+            UtilitiesMessages.showErrorDialog("Los simbolos terminales deben ingresarse en minúscula", "Error");
+        } else if (validateEmptyNonTerminalList(listNonTerminalSymbol)) {
+            UtilitiesMessages.showErrorDialog("Debe agregar al menos un elemento a la lista", "Error");
+        } else if (validateUpperCaseNonTerminalList(listNonTerminalSymbol)) {
+            UtilitiesMessages.showErrorDialog("Los simbolos No terminales deben ingresarse en mayúscula", "Error");
+        } else if (validateAxiomaticSymbol(axiomaticSymbol)) {
             UtilitiesMessages.showErrorDialog("Solo se puede establecer un simbolo axiomatico", "Error");
+        } else if (!validateContainAxiomaticSymbol(axiomaticSymbol,listNonTerminalSymbol)) {
+            UtilitiesMessages.showErrorDialog("El simbolo axiomatico debe pertenecer al conjunto de los simbolos no terminales", "Error");
+        } else {
+            this.mainFrame.setvLabel(grammar.getNoTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+            this.mainFrame.setSigmaValueLabel(grammar.getTerminalSymbolsList().toString().replace("[", "{").replace("]", "}"));
+            this.mainFrame.setAxiomaticValueLabel(grammar.getAxiomaticSymbol());
+            this.mainFrame.hideCreateDialog();
         }
-
-        this.mainFrame.hideCreateDialog();
     }
 
+    private boolean validateEmptyTerminalList(ArrayList<String> listTerminalSymbol) {
+        boolean list = false;
+            if (listTerminalSymbol.isEmpty()) {
+                list = true;
+            }
+            return list;
+    }
+
+    private boolean validateUpperCaseTerminalList(ArrayList<String> listTerminalSymbol){
+        boolean list = false;
+        for (int i = 0; i < listTerminalSymbol.size(); i++) {
+            for (int j = 0; j < listTerminalSymbol.get(i).length(); j++) {
+                if(Character.isUpperCase(listTerminalSymbol.get(i).charAt(j))){
+                    list = true;
+                }
+            }
+        }
+        return list;
+    }
+
+    private boolean validateEmptyNonTerminalList(ArrayList<String> listNonTerminalSymbol) {
+        boolean list = false;
+        if (listNonTerminalSymbol.isEmpty()) {
+            list = true;
+        }
+        return list;
+    }
+
+    private boolean validateUpperCaseNonTerminalList(ArrayList<String> listNonTerminalSymbol){
+        boolean list = false;
+        for (int i = 0; i < listNonTerminalSymbol.size(); i++) {
+            for (int j = 0; j < listNonTerminalSymbol.get(i).length(); j++) {
+                if(!Character.isUpperCase(listNonTerminalSymbol.get(i).charAt(j))){
+                    list = true;
+                }
+            }
+        }
+        return list;
+    }
+
+    private boolean validateAxiomaticSymbol(String axiomaticSymbol){
+        boolean list = false;
+        if(axiomaticSymbol.length() != 1){
+            list = true;
+        }
+        return list;
+    }
+
+    private boolean validateContainAxiomaticSymbol(String axiomaticSymbol, ArrayList<String> listNonTerminalSymbol){
+        boolean list = false;
+        if(listNonTerminalSymbol.contains(axiomaticSymbol)){
+            list = true;
+        }
+        return list;
+    }
+
+    private boolean validateIntersectionList(ArrayList<String> listTerminalSymbol,ArrayList<String> listNonTerminalSymbol){
+        boolean list = false;
+        for (int i = 0; i < listTerminalSymbol.size(); i++) {
+            for (int j = 0; j < listNonTerminalSymbol.size(); j++) {
+                if(listNonTerminalSymbol.get(i).contains(listNonTerminalSymbol.get(j))){
+                    list = true;
+                }
+            }
+        }
+        return list;
+    }
 
     public void cancelAddGrammar(){
         this.mainFrame.hideCreateDialog();
