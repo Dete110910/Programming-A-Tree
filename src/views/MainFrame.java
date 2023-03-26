@@ -109,4 +109,7 @@ public class MainFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
+    public void setProductions(Object[][] parseArrayListToMatrixObject) {
+        this.containerGrammar.setProductions(parseArrayListToMatrixObject);
+    }
 }
