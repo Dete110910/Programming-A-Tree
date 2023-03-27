@@ -1,14 +1,12 @@
 package views;
 
 import models.Node;
-import views.panels.AddGrammarPanel;
-import views.panels.ContainerGrammar;
-import views.panels.MainMenuPanel;
-import views.panels.ParticularTreePanel;
+import views.panels.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
 
@@ -20,6 +18,7 @@ public class MainFrame extends JFrame {
 
     private AddGrammarPanel addGrammarPanel;
     private ParticularTreePanel particularTreePanel;
+    private GeneralDerivationTree generalDerivationTree;
 
     public MainFrame(ActionListener listener){
         this.setTitle("Validador de Gramática");
@@ -35,7 +34,8 @@ public class MainFrame extends JFrame {
     private void initComponents(ActionListener listener){
         this.mainMenuPanel = new MainMenuPanel(listener);
         this.containerGrammar = new ContainerGrammar();
-
+        this.particularTreePanel = new ParticularTreePanel();
+        this.generalDerivationTree = new GeneralDerivationTree();
         this.add(mainMenuPanel, BorderLayout.NORTH);
         this.add(containerGrammar, BorderLayout.CENTER);
 
@@ -43,6 +43,10 @@ public class MainFrame extends JFrame {
     }
 
     private void hideAllPanels(){
+        containerGrammar.setVisible(false);
+        addGrammarPanel.setVisible(false);
+        generalDerivationTree.setVisible(false);
+        particularTreePanel.setVisible(false);
         SwingUtilities.updateComponentTreeUI(this);
     }
     public void showEnterGrammar(){
@@ -111,13 +115,27 @@ public class MainFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
+    public void showGeneralDerivationTree(ArrayList<String> stringsTree) {
+        generalDerivationTree.setGeneralDerivationTree1(stringsTree.get(0));
+        generalDerivationTree.setGeneralDerivationTree2(stringsTree.get(1));
+        generalDerivationTree.setGeneralDerivationTree3(stringsTree.get(2));
+        generalDerivationTree.setGeneralDerivationTree4(stringsTree.get(3));
+        generalDerivationTree.setGeneralDerivationTree5(stringsTree.get(4));
+        hideAllPanels();
+        generalDerivationTree.setVisible(true);
+        add(generalDerivationTree, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
+    }
+
     public void showHorizontalByPassTree(String horizontalByPassTree, String word) {
-        particularTreePanel = new ParticularTreePanel();
         particularTreePanel.setHorizontalByPassTree(horizontalByPassTree);
         particularTreePanel.setWord(word);
         containerGrammar.setVisible(false);
         add(particularTreePanel, BorderLayout.CENTER);
-
+        hideAllPanels();
+        particularTreePanel.setVisible(true);
         revalidate();
         repaint();
     }
