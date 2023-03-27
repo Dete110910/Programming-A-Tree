@@ -3,6 +3,8 @@ package presenter;
 import models.GeneralTree;
 import models.Grammar;
 import models.Node;
+import views.Dialogs.ValidationDialog;
+import views.Dialogs.WordDialog;
 import views.MainFrame;
 import views.UtilitiesMessages;
 
@@ -32,6 +34,12 @@ public class Presenter implements ActionListener {
                 break;
             case "View General Tree":
                 this.viewGeneralTree();
+                break;
+            case "View Particular Tree":
+                this.viewParticularTree();
+                break;
+            case "Check Word":
+                this.viewCheckWord();
                 break;
             case "Cancelar":
                 this.cancelAddGrammar();
@@ -204,6 +212,23 @@ public class Presenter implements ActionListener {
     private void viewGeneralTree() {
 
 
+    }
+
+    private void viewParticularTree() {
+        WordDialog wordDialog = new WordDialog();
+        wordDialog.setVisible(true);
+        String word = wordDialog.getPalabra();
+        String horizontalBypassTree = grammar.generateHorizontalDerivationWord(word);
+        mainFrame.showHorizontalByPassTree(horizontalBypassTree, word);
+    }
+
+    private void viewCheckWord() {
+        WordDialog wordDialog = new WordDialog();
+        wordDialog.setVisible(true);
+        String word = wordDialog.getPalabra();
+        boolean validation = grammar.checkWordInGrammar(word);
+        ValidationDialog validationDialog = new ValidationDialog(validation);
+        validationDialog.setVisible(true);
     }
 
     public static void main(String[] args) {
