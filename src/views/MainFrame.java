@@ -4,6 +4,7 @@ import models.Node;
 import views.panels.AddGrammarPanel;
 import views.panels.ContainerGrammar;
 import views.panels.MainMenuPanel;
+import views.panels.ParticularTreePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class MainFrame extends JFrame {
     private ContainerGrammar containerGrammar;
 
     private AddGrammarPanel addGrammarPanel;
+    private ParticularTreePanel particularTreePanel;
 
     public MainFrame(ActionListener listener){
         this.setTitle("Validador de Gramática");
@@ -78,6 +80,10 @@ public class MainFrame extends JFrame {
         this.addGrammarPanel.setAxiomaticSymbol(axiomaticSymbol);
     }
 
+    public String getProductions(){
+        return this.addGrammarPanel.getProductions();
+    }
+
     public void setvLabel(String vLabel) {
         this.containerGrammar.setvLabel(vLabel);
     }
@@ -105,4 +111,18 @@ public class MainFrame extends JFrame {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
+    public void showHorizontalByPassTree(String horizontalByPassTree, String word) {
+        particularTreePanel = new ParticularTreePanel();
+        particularTreePanel.setHorizontalByPassTree(horizontalByPassTree);
+        particularTreePanel.setWord(word);
+        containerGrammar.setVisible(false);
+        add(particularTreePanel, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
+    }
+
+    public void setProductions(Object[][] parseArrayListToMatrixObject) {
+        this.containerGrammar.setProductions(parseArrayListToMatrixObject);
+    }
 }
