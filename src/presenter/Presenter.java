@@ -210,25 +210,33 @@ public class Presenter implements ActionListener {
     }
 
     private void viewGeneralTree() {
-
-
+        ArrayList<String> stringsTree = grammar.getTextGeneralTree();
+        mainFrame.showGeneralDerivationTree(stringsTree);
     }
 
     private void viewParticularTree() {
         WordDialog wordDialog = new WordDialog();
         wordDialog.setVisible(true);
         String word = wordDialog.getPalabra();
-        String horizontalBypassTree = grammar.generateHorizontalDerivationWord(word);
-        mainFrame.showHorizontalByPassTree(horizontalBypassTree, word);
+        if (word == null) {
+            UtilitiesMessages.showErrorDialog("No ingresó ninguna palabra.", "Error");
+        } else {
+            String horizontalBypassTree = grammar.generateHorizontalDerivationWord(word);
+            mainFrame.showHorizontalByPassTree(horizontalBypassTree, word);
+        }
     }
 
     private void viewCheckWord() {
         WordDialog wordDialog = new WordDialog();
         wordDialog.setVisible(true);
         String word = wordDialog.getPalabra();
-        boolean validation = grammar.checkWordInGrammar(word);
-        ValidationDialog validationDialog = new ValidationDialog(validation);
-        validationDialog.setVisible(true);
+        if (word == null) {
+            UtilitiesMessages.showErrorDialog("No ingresó ninguna palabra.", "Error");
+        } else {
+            boolean validation = grammar.checkWordInGrammar(word);
+            ValidationDialog validationDialog = new ValidationDialog(validation);
+            validationDialog.setVisible(true);
+        }
     }
 
     public static void main(String[] args) {

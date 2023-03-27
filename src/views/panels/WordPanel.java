@@ -13,7 +13,7 @@ public class WordPanel extends JPanel{
 
     public WordPanel(){
         this.setSize(WIDTH, HEIGHT);
-        this.setBackground(Color.decode("#80ED99"));
+        this.setBackground(Color.decode("#ade8f4"));
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setLayout(new GridBagLayout());
         this.initComponents();
